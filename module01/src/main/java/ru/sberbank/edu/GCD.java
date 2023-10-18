@@ -1,6 +1,6 @@
 package ru.sberbank.edu;
 
-public class GCD implements CommonDivisor {
+ public class GCD implements CommonDivisor {
     /***
      * this method finds the greatest common divisor for two numbers
      */

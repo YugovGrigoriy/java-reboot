@@ -4,7 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 
-public class GreetingImplTest {
+ public class GreetingImplTest {
     /***
      * getBestHobby must return a string
      * and the information should be about me

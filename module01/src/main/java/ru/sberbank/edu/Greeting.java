@@ -1,5 +1,5 @@
 package ru.sberbank.edu;
 
-public interface Greeting {
+ public interface Greeting {
     String getBestHobby();
 }

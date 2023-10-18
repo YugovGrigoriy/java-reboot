@@ -5,7 +5,7 @@ import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
 
-class GCDTest {
+ class GCDTest {
 
     @Test
     public void getDivisor() {

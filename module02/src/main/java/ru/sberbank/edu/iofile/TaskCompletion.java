@@ -3,7 +3,7 @@ package ru.sberbank.edu.iofile;
 import java.io.File;
 import java.util.Scanner;
 
-public  class TaskCompletion {
+ public  class TaskCompletion {
     public TaskCompletion() {
         File file = new File("information.txt");
         ReaderFile readerFile = new ReaderFile();

@@ -4,7 +4,7 @@ package ru.sberbank.edu.iofile;
 import java.util.List;
 
 // интерфейс можно менять
-public interface Statistic {
+ public interface Statistic {
 
     int getLineCount(List<String> list);
     int getSpaceCount(List<String> list);

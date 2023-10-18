@@ -8,7 +8,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.util.List;
 
-public class StatisticImpl implements Statistic {
+ public class StatisticImpl implements Statistic {
     @Override
     public int getLineCount(List<String> list) {
         return list.size();
