@@ -1,5 +1,5 @@
 package ru.sberbank.edu;
 
-public interface CommonDivisor {
+ public interface CommonDivisor {
     int getDivisor(int firstNumber, int secondNumber);
 }
