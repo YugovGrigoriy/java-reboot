@@ -18,7 +18,11 @@ public class TravelService {
      * @throws IllegalArgumentException if city already exists
      */
     public void add(CityInfo cityInfo) {
-        // do something
+        if (!cities.contains(cityInfo)) {
+            cities.add(cityInfo);
+        } else {
+            throw new IllegalArgumentException("City already exists");
+        }
     }
 
     /**
@@ -28,15 +32,20 @@ public class TravelService {
      * @throws IllegalArgumentException if city doesn't exist
      */
     public void remove(String cityName) {
-        // do something
+        cities.removeIf(cityInfo -> cityInfo.getName().equals(cityName));
     }
 
     /**
      * Get cities names.
      */
     public List<String> citiesNames() {
-        return null;
+        List<String> cityNames = new ArrayList<>();
+        for (CityInfo cityInfo : cities) {
+            cityNames.add(cityInfo.getName());
+        }
+        return cityNames;
     }
+
 
     /**
      * Get distance in kilometers between two cities.
@@ -47,8 +56,13 @@ public class TravelService {
      * @throws IllegalArgumentException if source or destination city doesn't exist.
      */
     public int getDistance(String srcCityName, String destCityName) {
-        return 0;
+        CityInfo srcCity = findCityByName(srcCityName);
+        CityInfo destCity = findCityByName(destCityName);
+
+        double distance = calculateDistance(srcCity.getPosition(), destCity.getPosition());
+        return (int) Math.ceil(distance);
     }
+
 
     /**
      * Get all cities near current city in radius.
@@ -58,6 +72,44 @@ public class TravelService {
      * @throws IllegalArgumentException if city with cityName city doesn't exist.
      */
     public List<String> getCitiesNear(String cityName, int radius) {
-        return null;
+        CityInfo city = findCityByName(cityName);
+        List<String> nearbyCities = new ArrayList<>();
+
+        for (CityInfo otherCity : cities) {
+            if (!otherCity.equals(city)) {
+                double distance = calculateDistance(city.getPosition(), otherCity.getPosition());
+                if (distance <= radius) {
+                    nearbyCities.add(otherCity.getName());
+                }
+            }
+        }
+
+        return nearbyCities;
+    }
+
+    private CityInfo findCityByName(String cityName) {
+        for (CityInfo city : cities) {
+            if (city.getName().equals(cityName)) {
+                return city;
+            }
+        }
+        throw new IllegalArgumentException("Город не существует");
+    }
+
+    private double calculateDistance(GeoPosition srcPosition, GeoPosition destPosition) {
+        double lat1 =srcPosition.getLatitude();
+        double lon1 =srcPosition.getLongitude();
+        double lat2 =destPosition.getLatitude();
+        double lon2 =destPosition.getLongitude();
+        double earthRadius = 6371.0;
+
+        double dlon = lon2 - lon1;
+        double dlat = lat2 - lat1;
+
+        double a = Math.pow(Math.sin(dlat / 2), 2) + Math.cos(lat1) * Math.cos(lat2) * Math.pow(Math.sin(dlon / 2), 2);
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+        return earthRadius * c;
     }
 }
+
