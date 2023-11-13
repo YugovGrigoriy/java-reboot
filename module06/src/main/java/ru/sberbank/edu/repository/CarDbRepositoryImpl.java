@@ -126,7 +126,7 @@ public class CarDbRepositoryImpl implements CarRepository {
     }
 
     @Override
-    public Set<Car> findByModel(String model) {
+     public Set<Car> findByModel(String model) {
         try (PreparedStatement statement = connection.prepareStatement("select * from car where model=?")) {
             statement.setString(1, model);
             try (ResultSet resultSet = statement.executeQuery()) {

@@ -15,7 +15,7 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public void addCar(String id, String model) throws SQLException {
+     public void addCar(String id, String model) throws SQLException {
         carRepository.createOrUpdate(new Car(id, model));
     }
 

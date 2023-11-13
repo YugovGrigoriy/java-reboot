@@ -12,7 +12,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 
 public class CarBootstrap {
-    public static void main(String[] args) throws Exception {
+     public static void main(String[] args) throws Exception {
         Server server = Server.createTcpServer(args).start();
         H2DbEmbedded.initDb();
 
