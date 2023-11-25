@@ -1,15 +1,18 @@
 package ru.sberbank.edu;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.time.LocalDateTime;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class WeatherInfo {
 
-    private String city;
 
+    private String city;
     /**
      * Short weather description
      * Like 'sunny', 'clouds', 'raining', etc
      */
+
     private String shortDescription;
 
     /**
@@ -43,4 +46,84 @@ public class WeatherInfo {
      * If current time is above expiry time then current weather info is not actual!
      */
     private LocalDateTime expiryTime;
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public void setShortDescription(String shortDescription) {
+        this.shortDescription = shortDescription;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setTemperature(double temperature) {
+        this.temperature = temperature;
+    }
+
+    public void setFeelsLikeTemperature(double feelsLikeTemperature) {
+        this.feelsLikeTemperature = feelsLikeTemperature;
+    }
+
+    public void setWindSpeed(double windSpeed) {
+        this.windSpeed = windSpeed;
+    }
+
+    public void setPressure(double pressure) {
+        this.pressure = pressure;
+    }
+
+    public void setExpiryTime(LocalDateTime expiryTime) {
+        this.expiryTime = expiryTime;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public String getShortDescription() {
+        return shortDescription;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public double getTemperature() {
+        return temperature;
+    }
+
+    public double getFeelsLikeTemperature() {
+        return feelsLikeTemperature;
+    }
+
+    public double getWindSpeed() {
+        return windSpeed;
+    }
+
+    public double getPressure() {
+        return pressure;
+    }
+
+    public LocalDateTime getExpiryTime() {
+        return expiryTime;
+    }
+
+    @Override
+    public String toString() {
+        return "WeatherInfo{" +
+                "city='" + city + '\'' +
+                ", shortDescription='" + shortDescription + '\'' +
+                ", description='" + description + '\'' +
+                ", temperature=" + temperature +
+                ", feelsLikeTemperature=" + feelsLikeTemperature +
+                ", windSpeed=" + windSpeed +
+                ", pressure=" + pressure +
+                ", expiryTime=" + expiryTime +
+                '}';
+    }
+
 }
+
