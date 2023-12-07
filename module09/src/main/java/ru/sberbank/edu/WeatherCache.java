@@ -1,20 +1,23 @@
 package ru.sberbank.edu;
 
+import org.springframework.stereotype.Component;
+
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
-
-/**
- * Weather cache.
- */
+@Component
 public class WeatherCache {
 
     private final Map<String, WeatherInfo> cache = new HashMap<>();
-    private WeatherProvider weatherProvider;
+    private final WeatherProvider weatherProvider;
 
     /**
-     * Default constructor.
+     * Constructor.
+     *
+     * @param weatherProvider - weather provider
      */
-    public WeatherCache() {
+    public WeatherCache(WeatherProvider weatherProvider) {
+        this.weatherProvider = weatherProvider;
     }
 
     /**
@@ -26,15 +29,31 @@ public class WeatherCache {
      * @param city - city
      * @return actual weather info
      */
-    public WeatherInfo getWeatherInfo(String city) {
-        // should be implemented
-        return null;
+    public synchronized WeatherInfo getWeatherInfo(String city) {
+        WeatherInfo cachedInfo = cache.get(city);
+        if (cachedInfo == null || !isInfoActual(cachedInfo)) {
+            WeatherInfo newInfo = weatherProvider.get(city);
+            if (newInfo != null) {
+                newInfo.setExpiryTime(LocalDateTime.now().plusMinutes(5));
+                cache.put(city, newInfo);
+                return newInfo;
+            } else {
+                cache.remove(city);
+            }
+        }
+        return cachedInfo;
     }
 
     /**
      * Remove weather info from cache.
      **/
-    public void removeWeatherInfo(String city) {
-        // should be implemented
+    public synchronized void removeWeatherInfo(String city) {
+        cache.remove(city);
+    }
+
+    private boolean isInfoActual(WeatherInfo info) {
+        LocalDateTime currentTime = LocalDateTime.now();
+        LocalDateTime expiryTime = info.getExpiryTime();
+        return currentTime.isBefore(expiryTime);
     }
 }
